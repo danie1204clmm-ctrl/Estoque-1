@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Estoque</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistema de Controle de Estoque</h1>
+            <p>Gerencie seus produtos de forma simples e eficiente</p>
+        </header>
+
+        <main>
+            <!-- Seção do Formulário -->
+            <section class="form-section">
+                <h2>Adicionar/Editar Produto</h2>
+                <form id="produto-form">
+                    <div class="form-group">
+                        <label for="nome">Nome do Produto:</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quantidade">Quantidade:</label>
+                        <input type="number" id="quantidade" name="quantidade" min="0" required>
+                    </div>
+                    
+
+                    
+                    <div class="form-buttons">
+                        <button type="submit" id="btn-salvar">Adicionar Produto</button>
+                        <button type="button" id="btn-cancelar" style="display: none;">Cancelar</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Seção de Estatísticas -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total de Produtos</h3>
+                        <span id="total-produtos">0</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Produtos em Baixa</h3>
+                        <span id="produtos-baixa">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção da Tabela -->
+            <section class="table-section">
+                <div class="table-header">
+                    <h2>Lista de Produtos</h2>
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Buscar produtos...">
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="produtos-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quantidade</th>
+
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="produtos-tbody">
+                            <!-- Os produtos serão inseridos aqui dinamicamente -->
+                        </tbody>
+                    </table>
+                    
+                    <div id="empty-state" class="empty-state">
+                        <p>Nenhum produto cadastrado ainda.</p>
+                        <p>Use o formulário acima para adicionar seu primeiro produto.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal de Confirmação -->
+        <div id="modal-confirmacao" class="modal">
+            <div class="modal-content">
+                <h3>Confirmar Exclusão</h3>
+                <p>Tem certeza que deseja excluir este produto?</p>
+                <div class="modal-buttons">
+                    <button id="btn-confirmar-exclusao" class="btn-danger">Excluir</button>
+                    <button id="btn-cancelar-exclusao" class="btn-secondary">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay do Modal -->
+        <div id="modal-overlay" class="modal-overlay"></div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/service-worker.js")
+                    .then(reg => console.log("Service Worker registrado com sucesso:", reg))
+                    .catch(err => console.log("Erro ao registrar Service Worker:", err));
+            });
+        }
+    </script>
+</body>
+</html>
